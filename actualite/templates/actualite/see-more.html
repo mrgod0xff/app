@@ -1,0 +1,281 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+  {{ article_titre }} | {{ block.super }}
+{% endblock head_title %}
+
+{% block content %}
+{% include 'nav.html' %}
+    <div class="container">
+<!--Blog section-->
+<section>
+    <div class="container-fluid white">
+        <hr class="mb-5 mt-0">
+        <div class="container">
+            <!--Section: Blog v.3-->
+            <section class="section extra-margins mt-5 py-5 text-center text-lg-left">
+                <div class="row my-xl-5 py-xl-4">
+                    <div class="col-sm-12 col-md-5 col-xl-5 mb-4" style="width: 490px!important;height: 672px!important;height: auto!important;margin: 3px!important;padding: 3px!important;">
+                        <div class="view overlay">
+                            {% if thumbnail %}
+                                <img src="{{ thumbnail.url }}" style="max-width: 100%!important; height: auto!important;" class="img-fluid z-depth-1" alt="{{ article_titre }}">
+                            {% else %}
+                                {% load static %}
+                                <img src="{% static 'renaissance/img/earth-globe.jpg' %}" class="img-fluid rounded-bottom" alt="{{ article_titre }}">
+                            {% endif %}
+                            <div class="mask rgba-white-slight"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-6">
+                        <h5 class="dark-grey-text text-lowercase pb-2 font-weight-bold">
+                            <strong>{{ type }}</strong>
+                        </h5>
+                        <p class="gold-text mb-4 text-uppercase font-weight-bold">{{ article_titre }}</p>
+                        <hr>
+                        <p class="dark-grey-text mt-4 text-justify">{{ content|linebreaks }}</p>
+                        <h5 class="text-right font-weight-bold dark-grey-text mt-5">
+                            <em>Admin</em>
+                        </h5>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+<!--Blog section-->
+
+<hr class="mt-1">
+
+<!--Comments-->
+<section>
+    <div class="comments-list text-center text-md-left">
+        <div class="text-center my-4">
+            <h3 class="font-weight-bold">Commentaires
+                <span class="badge indigo">1</span>
+            </h3>
+        </div>
+        <div class="row mb-1">
+            <div class="col-sm-10 col-12">
+                <a>
+                    <h5 class="user-name font-weight-bold">Mr hgggg</h5>
+                </a>
+                <div class="card-data">
+                    <ul class="list-unstyled">
+                        <li class="comment-date font-small">
+                            <i class="far fa-clock-o"></i> 05/10/2015</li>
+                    </ul>
+                </div>
+                <p class="dark-grey-text article">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                    idatat non proident.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mb-4 wow fadeIn" data-wow-delay="0.2s">
+    <h3 class="font-weight-bold text-center my-5">Laisser un avis</h3>
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="input-group md-form form-sm form-3 pl-0">
+                    <input type="text" class="form-control mt-0 black-border rgba-white-strong" placeholder="Nom" aria-describedby="basic-addon9">
+                </div>
+                <div class="input-group md-form form-sm form-3 pl-0">
+                    <input type="text" class="form-control mt-0 black-border rgba-white-strong" placeholder="Email" aria-describedby="basic-addon9">
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="form-group basic-textarea rounded-corners shadow-textarea">
+                    <textarea class="form-control" id="exampleFormControlTextarea6" rows="5" placeholder="Écrivez quelque chose ici..."></textarea>
+                </div> 
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="text-center">
+                    <button class="btn btn-grey btn-sm">Soumettre</button>
+                </div> 
+            </div>
+        </div>
+    </section>
+    </div>
+        <section>
+            <div class="container-fluid grey lighten-3 mb-0 pb-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12">
+                            <h6 class="font-weight-bold mt-5 mb-3">ABOUT</h6>
+                            <hr class="mb-5">
+                            <img src="https://mdbootstrap.com/img/Photos/Slides/img (108).jpg" alt="sample image" class="img-fluid z-depth-1">
+                            <p class="mt-4 mb-5">Sed ut in perspiciatis unde omnis iste natus error sit on i tatem accusantium doloremque laudantium,
+                                totam rem aperiam, eaque ipsa quae.</p>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <h6 class="font-weight-bold mt-5 mb-3">LATESTS POSTS</h6>
+                            <hr class="mb-5">
+                            <div class="row mt-4">
+                                <div class="col-4">
+                                    <div class="view overlay z-depth-1 mb-3">
+                                        <img src="https://mdbootstrap.com/img/Photos/Others/photo12.jpg" class="img-fluid" alt="Post">
+                                        <a>
+                                            <div class="mask rgba-white-slight"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-8 mb-1">
+                                    <div class="">
+                                        <p class="mb-1">
+                                            <a href="#!" class="text-hover font-weight-bold">Sed ut in perspiciatis unde omnis</a>
+                                        </p>
+                                        <p class="font-small grey-text">
+                                            <em>July 22, 2017</em>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="view overlay z-depth-1 mb-3">
+                                        <img src="https://mdbootstrap.com/img/Photos/Others/photo11.jpg" class="img-fluid" alt="Post">
+                                        <a>
+                                            <div class="mask rgba-white-slight"></div>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-7 mb-1">
+                                    <div class="">
+                                        <p class="mb-1">
+                                            <a href="#!" class="text-hover font-weight-bold">At vero eos et accusamus et </a>
+                                        </p>
+                                        <p class="font-small grey-text">
+                                            <em>July 22, 2017</em>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="view overlay z-depth-1 mb-3">
+                                        <img src="https://mdbootstrap.com/img/Photos/Others/photo15.jpg" class="img-fluid" alt="Post">
+                                        <a>
+                                            <div class="mask rgba-white-slight"></div>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-7 mb-1">
+                                    <div class="">
+                                        <p class="mb-1">
+                                            <a href="#!" class="text-hover font-weight-bold">Nemo enim ipsam voluptatem</a>
+                                        </p>
+                                        <p class="font-small grey-text">
+                                            <em>July 22, 2017</em>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <h6 class="font-weight-bold mt-5 mb-3">OLDER POSTS</h6>
+                            <hr class="mb-5">
+                            <div class="row mt-4">
+                                <div class="col-4">
+                                    <div class="view overlay z-depth-1 mb-3">
+                                        <img src="https://mdbootstrap.com/img/Photos/Others/photo1.jpg" class="img-fluid" alt="Post">
+                                        <a>
+                                            <div class="mask rgba-white-slight"></div>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-8 mb-1">
+                                    <div class="">
+                                        <p class="mb-1">
+                                            <a href="#!" class="text-hover font-weight-bold">Sed ut in perspiciatis unde omnis</a>
+                                        </p>
+                                        <p class="font-small grey-text">
+                                            <em>July 22, 2017</em>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="view overlay z-depth-1 mb-3">
+                                        <img src="https://mdbootstrap.com/img/Photos/Others/photo9.jpg" class="img-fluid" alt="Post">
+                                        <a>
+                                            <div class="mask rgba-white-slight"></div>
+                                        </a>
+                                    </div>
+
+                                </div>
+                                <!--Grid column-->
+
+                                <!--Second column-->
+                                <div class="col-7 mb-1">
+
+                                    <!--Post data-->
+                                    <div class="">
+                                        <p class="mb-1">
+                                            <a href="#!" class="text-hover font-weight-bold">At vero eos et accusamus et </a>
+                                        </p>
+                                        <p class="font-small grey-text">
+                                            <em>July 22, 2017</em>
+                                        </p>
+
+                                    </div>
+
+                                </div>
+                                <!--Second column-->
+
+                            </div>
+                            <!--Grid row-->
+
+
+                            <!--Grid row-->
+                            <div class="row">
+
+                                <!--Grid column-->
+                                <div class="col-4">
+
+                                    <!--Image-->
+                                    <div class="view overlay z-depth-1 mb-3">
+                                        <img src="https://mdbootstrap.com/img/Photos/Others/photo4.jpg" class="img-fluid" alt="Post">
+                                        <a>
+                                            <div class="mask rgba-white-slight"></div>
+                                        </a>
+                                    </div>
+
+                                </div>
+                                <!--Grid column-->
+
+                                <!--Second column-->
+                                <div class="col-7 mb-1">
+
+                                    <!--Post data-->
+                                    <div class="">
+                                        <p class="mb-1">
+                                            <a href="#!" class="text-hover font-weight-bold">Nemo enim ipsam voluptatem</a>
+                                        </p>
+                                        <p class="font-small grey-text">
+                                            <em>July 22, 2017</em>
+                                        </p>
+                                    </div>
+
+                                </div>
+                                <!--Second column-->
+
+                            </div>
+                            <!--Grid row-->
+
+                        </div>
+                        <!--Grid column-->
+
+                    </div>
+                    <!--Grid row-->
+
+                </div>
+            </div>
+        </section>
+        <!--/Latest posts-->
+{% endblock %}
