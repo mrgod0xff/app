@@ -1,4 +1,5 @@
 import os
+import uuid
 import random
 
 from django.db import models
@@ -18,6 +19,7 @@ def image_path(instance, filename):
             final_filename=final_filename)
 
 class Vision(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name    = models.CharField(max_length=200)
     image   = models.ImageField(upload_to=image_path, null=True, blank=True)
     content = models.TextField(null=True, blank=True)
@@ -26,6 +28,7 @@ class Vision(models.Model):
         return self.name
 
 class Priorite(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name    = models.CharField(max_length=200)
     image   = models.ImageField(upload_to=image_path, null=True, blank=True)
     content = models.TextField(null=True, blank=True)
@@ -34,6 +37,7 @@ class Priorite(models.Model):
         return self.name
 
 class Objectif(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name    = models.CharField(max_length=200)
     image   = models.ImageField(upload_to=image_path, null=True, blank=True)
     content = models.TextField(null=True, blank=True)
@@ -42,6 +46,7 @@ class Objectif(models.Model):
         return self.name 
 
 class Strategie(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name    = models.CharField(max_length=200)
     image   = models.ImageField(upload_to=image_path, null=True, blank=True)
     content = models.TextField(null=True, blank=True)
@@ -50,6 +55,7 @@ class Strategie(models.Model):
         return self.name 
 
 class Biographie(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name    = models.CharField(max_length=200)
     image   = models.ImageField(upload_to=image_path, null=True, blank=True)
     content = models.TextField(null=True, blank=True)
@@ -58,6 +64,7 @@ class Biographie(models.Model):
         return self.name
 
 class Carousel(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     titre  = models.CharField(max_length=200)
     images = models.ImageField(upload_to=image_path, null=True, blank=True)    
 
@@ -65,6 +72,7 @@ class Carousel(models.Model):
         return self.titre
 
 class Event(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     titre = models.CharField(max_length=200)
 
     def __str__(self):

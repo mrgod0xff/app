@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,34 +16,34 @@
         body,
         header,
         .jarallax {
-          height: 600px;
+            height: 600px;
         }
-
+        
         @media (max-width: 740px) {
-          html,
-          body,
-          header,
-          .jarallax {
-            height: 100%;
-          }
+            html,
+            body,
+            header,
+            .jarallax {
+                height: 100%;
+            }
         }
-
+        
         @media (min-width: 800px) and (max-width: 850px) {
-          html,
-          body,
-          header,
-          .jarallax {
-            height: 100%;
-          }
+            html,
+            body,
+            header,
+            .jarallax {
+                height: 100%;
+            }
         }
     </style>
 </head>
 
 <body class="homepage-v1 hidden-sn animated">
-    
+
 
     <div class="">
-    {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
     </div>
 
     <footer class="page-footer stylish-color text-center text-md-left  pt-4" style="background: #123549 !important;">
@@ -51,30 +52,49 @@
                 <div class="col-md-6">
                     <h6 class="text-uppercase font-weight-bold">A Propos</h6>
                     <hr>
-                    <p>Nous somme un mouvement politique transpartisan. De ce fait il est ouvert à toute personne, à toute organisation qui adhère à sa vision et ses valeurs sont donc le principal centre d’intérêt reste la Reconstruction de la Côte d’Ivoire et le bien-être de la population ivoirienne.</p>
+                    <p>Nous somme un mouvement politique transpartisan. De ce fait il est ouvert à toute personne, à toute organisation qui adhère à sa vision et ses valeurs sont donc le principal centre d’intérêt reste la Reconstruction de la Côte d’Ivoire
+                        et le bien-être de la population ivoirienne.</p>
                 </div>
-                
+
                 <hr class="w-50 clearfix d-md-none" style="background:#fff">
-                
+
                 <div class="col-md-3">
                     <h6 class="text-uppercase font-weight-bold">Liens Utils</h6>
                     <hr>
                     <ul class="list-unstyled">
-                        <li><a href="#!"><p>Devenez membre</p></a></li>
-                        <li><a href="#!"><p>Souscrire au bulletin d'information</p></a></li>
-                        <li><a href="#!"><p>Rénaissance sur les réseaux sociaux</p></a></li>
+                        <li>
+                            <a href="#!">
+                                <p>Devenez membre</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!">
+                                <p>Souscrire au bulletin d'information</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!">
+                                <p>Rénaissance sur les réseaux sociaux</p>
+                            </a>
+                        </li>
                     </ul>
                 </div>
-                
+
                 <hr class="w-50 clearfix d-md-none" style="background:#fff">
-                
+
                 <div class="col-md-3">
                     <h6 class="text-uppercase font-weight-bold">Contactez Nous</h6>
                     <hr>
                     <ul class="list-unstyled">
-                        <li><p><i class="fa fa-home mr-3"></i>94550 Franklin Roosevelt, Chevilly Larue, Paris, FRANCE.</p></li>
-                        <li><p><i class="fa fa-envelope mr-3"></i>infos@renaissance.com</p></li>
-                        <li><p><i class="fa fa-phone mr-3"></i> 07 68 18 28 22</p></li>
+                        <li>
+                            <p><i class="fa fa-home mr-3"></i>94550 Franklin Roosevelt, Chevilly Larue, Paris, FRANCE.</p>
+                        </li>
+                        <li>
+                            <p><i class="fa fa-envelope mr-3"></i>infos@renaissance.com</p>
+                        </li>
+                        <li>
+                            <p><i class="fa fa-phone mr-3"></i> 07 68 18 28 22</p>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -97,6 +117,11 @@
         </div>
     </footer>
     <script type="text/javascript" src="{% static 'renaissance/js/jquery-3.4.0.min.js' %}"></script>
+    <script>
+     $(function () {
+        $("#mdb-lightbox-ui").load("galerie/lightbox-ui.html");
+     });
+    </script>
     <script type="text/javascript" src="{% static 'renaissance/js/popper.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'renaissance/js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'renaissance/js/mdb.min.js' %}"></script>

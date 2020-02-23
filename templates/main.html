@@ -57,8 +57,11 @@
             <div class="col-md-12">
                 <center>
                 <div class="view overlay mb-3">
+                    {% if p.image %}
                     <img src="{{ p.image.url }}" class="img-fluid" alt="{{ p.name }}">
+                    {% endif %}
                     <a href="#!"><div class="mask rgba-white-slight"></div></a>
+
                 </div>
                 </center>
                 <a href="#" class="cyan-text"><p class="text-center font-weight-bold gold-text mt-4">PRIORITE</p></a>
@@ -136,7 +139,12 @@
                     <div class="row mb-4">
                         <div class="col-5">
                             <div class="view overlay">
+                                {% if actu.image %}
                                 <img src="{{ actu.image.url }}" class="img-fluid z-depth-1 rounded-0" alt="sample image">
+                                {% else %}
+                                    {% load static %}
+                                    <img src="{% static 'renaissance/img/earth-globe.jpg' %}" class="img-fluid rounded-bottom" alt="image manque">
+                                {% endif %}
                                 <a><div class="mask rgba-white-slight"></div></a>
                             </div>
                         </div>

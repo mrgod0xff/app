@@ -1,5 +1,6 @@
 import os
 import random
+import uuid
 
 from django.db import models
 
@@ -19,6 +20,7 @@ def image_path(instance, filename):
 
 
 class Revue(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     maison = models.CharField(max_length=200)
     numero = models.IntegerField()
     image  = models.ImageField(upload_to=image_path, null=True, blank=True)

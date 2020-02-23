@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'galerie.apps.GalerieConfig',
     'newsletter.apps.NewsletterConfig',
     'titrologie.apps.TitrologieConfig',
+    'forum_post.apps.ForumPostConfig',
+    'forum_comments.apps.ForumCommentsConfig',
+    'crispy_forms',
     'jet.dashboard',
     'jet',
     'django.contrib.admin',
@@ -118,12 +121,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+#configuration de mailgun
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST = "smtp.gmail.com" 
+EMAIL_HOST_USER = "fck2645@gmail.com" 
+EMAIL_HOST_PASSWORD = "Dieuaidemoi1#" 
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER 
+EMAIL_PORT = 587
 
 # Internationalization
 INTERNAL_IPS = ['127.0.0.1']
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
 LANGUAGE_CODE = 'fr'
+
 
 TIME_ZONE = 'Africa/Abidjan'
 

@@ -1,5 +1,6 @@
 import os
 import random
+import uuid
 
 from django.db import models
 
@@ -18,6 +19,7 @@ def image_path(instance, filename):
             final_filename=final_filename)
 
 class Galerie(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name  = models.CharField(max_length=200)
     image = models.ImageField(upload_to=image_path, null=True, blank=True)
 

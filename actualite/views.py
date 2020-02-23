@@ -1,10 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import transaction, IntegrityError
-
+from django.core.mail import send_mail
+from renaissance.settings import EMAIL_HOST_USER
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 # Create your views here.
 from .models import Article, Categorie, Nouveaute
 from titrologie.models import Revue
+from .forms import CommentForm
+
 
 def actualites(request):
     articles = Article.objects.all()
@@ -32,12 +37,50 @@ def actualites(request):
 
 @transaction.atomic
 def see_more(request, article_id):
+    template_name = 'actualite/see-more.html'
     article = get_object_or_404(Article, pk=article_id)
-    context = {
-        'article_id': article.id,
-        'article_titre': article.titre,
-        'content': article.content,
-        'type': article.genre,
-        'thumbnail': article.image
-    }
-    return render(request, 'actualite/see-more.html', context)
+    last_art = Article.objects.all()[:3]
+    last_news = Nouveaute.objects.all()[:3]
+    comments = article.comments.filter(active=True)
+    new_comment = None
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            nom = comment_form.cleaned_data['nom']
+            email = comment_form.cleaned_data['email']
+            message = comment_form.cleaned_data['message']
+            # Créer un objet Commentaire mais ne pas encore enregistrer dans la base de données
+            new_comment = comment_form.save(commit=False)
+            # Attribuer le message actuel au commentaire
+            new_comment.post = article
+            guest_name = new_comment.nom
+            guest_email = new_comment.email
+            guest_message = new_comment.message
+            subject = "Notification sur Actualité"
+            print(new_comment.id)
+            context = {
+                'id': new_comment.id,
+                'author': guest_name,
+                'message': guest_message,
+                'article': article
+            }
+            msg_html = render_to_string('actualite/email.html', context)
+            plain_message = strip_tags(msg_html)
+            # Enregistrez le commentaire dans la base de données
+            send_mail(subject, plain_message, EMAIL_HOST_USER, ['kouameaugui@gmail.com'], fail_silently = False, html_message=msg_html)
+            new_comment.save()
+            
+    else:
+        comment_form = CommentForm()
+    return render(request, template_name, {
+                'article_id': article.id,
+                'article_titre': article.titre,
+                'last': last_art,
+                'l_new': last_news,
+                'content': article.content,
+                'type': article.genre,
+                'thumbnail': article.image,
+                'comments': comments,
+                'new_comment': new_comment,
+                'comment_form': comment_form
+            })

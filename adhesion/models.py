@@ -1,8 +1,10 @@
 from django.db import models
 from django.core.validators import RegexValidator
+import uuid
 
 # Create your models here.
 class Adhesion(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nom_complet  = models.CharField(max_length=200)
     phone_regex  = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Le numéro de téléphone doit être entré au format: '+22587147883'. le code pays(+225) suivi de votre numero.")
     numero_de_telephone = models.CharField(validators=[phone_regex], max_length=15, blank=True)

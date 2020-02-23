@@ -5,6 +5,7 @@
 {% endblock head_title %}
 
 {% block content %}
+{% load crispy_forms_tags %}
 {% include 'nav.html' %}
     <div class="container">
 <!--Blog section-->
@@ -50,138 +51,122 @@
 <section>
     <div class="comments-list text-center text-md-left">
         <div class="text-center my-4">
+          {% with comments.count as total_comments %}
             <h3 class="font-weight-bold">Commentaires
-                <span class="badge indigo">1</span>
+                <span class="badge badge-danger ml-2">{{ total_comments }}</span>
             </h3>
+          {% endwith %}
         </div>
-        <div class="row mb-1">
-            <div class="col-sm-10 col-12">
-                <a>
-                    <h5 class="user-name font-weight-bold">Mr hgggg</h5>
-                </a>
-                <div class="card-data">
-                    <ul class="list-unstyled">
-                        <li class="comment-date font-small">
-                            <i class="far fa-clock-o"></i> 05/10/2015</li>
-                    </ul>
+        {% for comment in comments %}
+            <div class="row mb-1">
+                <div class="col-sm-10 col-12">
+                    <a>
+                        <h5 class="user-name font-weight-bold">
+                            {{ comment.nom }}
+                        </h5>
+                    </a>
+                    <div class="card-data">
+                        <ul class="list-unstyled">
+                            <li class="comment-date font-small">
+                                <i class="far fa-clock-o"></i>
+                                {{ comment.created_on }}
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="dark-grey-text article">
+                        {{ comment.message | linebreaks }}
+                    </p>
                 </div>
-                <p class="dark-grey-text article">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                    idatat non proident.</p>
             </div>
-        </div>
+        {% endfor %}
     </div>
 </section>
-
-<section class="mb-4 wow fadeIn" data-wow-delay="0.2s">
-    <h3 class="font-weight-bold text-center my-5">Laisser un avis</h3>
-        <div class="row">
-            <div class="col-lg-4 col-md-12">
-                <div class="input-group md-form form-sm form-3 pl-0">
-                    <input type="text" class="form-control mt-0 black-border rgba-white-strong" placeholder="Nom" aria-describedby="basic-addon9">
-                </div>
-                <div class="input-group md-form form-sm form-3 pl-0">
-                    <input type="text" class="form-control mt-0 black-border rgba-white-strong" placeholder="Email" aria-describedby="basic-addon9">
-                </div>
+<hr class="mt-1">
+    <section class="mb-4 wow fadeIn" data-wow-delay="0.2s">
+       {% if new_comment %}
+          <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Félicitation !</h4>
+                <p>Votre avis a été enregistré avec succès.</p>
+                <hr>
+            <p class="mb-0">Il a été soumis à validation et affichera bientôt dans les commentaires de ce poste.<br> Merci pour votre attention</p>
+          </div>
+        {% else %}
+            <h3 class="font-weight-bold text-center my-5">Laisser un Commentaire</h3>
+            <div class="container p-5">
+                <em>Votre adresse email ne sera pas publiée. Les champs obligatoires sont marqués*</em>
+                <form method="post" style="margin-top: 1.3em;">
+                    {{ comment_form | crispy }}
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary  btn-lg" style="background: #123549 !important;">Poster un commentaire</button>
+                </form>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="form-group basic-textarea rounded-corners shadow-textarea">
-                    <textarea class="form-control" id="exampleFormControlTextarea6" rows="5" placeholder="Écrivez quelque chose ici..."></textarea>
-                </div> 
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="text-center">
-                    <button class="btn btn-grey btn-sm">Soumettre</button>
-                </div> 
-            </div>
-        </div>
+        {% endif %}
     </section>
-    </div>
+</div>
         <section>
             <div class="container-fluid grey lighten-3 mb-0 pb-0">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-4 col-md-12">
-                            <h6 class="font-weight-bold mt-5 mb-3">ABOUT</h6>
+                            <h6 class="font-weight-bold mt-5 mb-3 text-uppercase">évènements</h6>
                             <hr class="mb-5">
-                            <img src="https://mdbootstrap.com/img/Photos/Slides/img (108).jpg" alt="sample image" class="img-fluid z-depth-1">
-                            <p class="mt-4 mb-5">Sed ut in perspiciatis unde omnis iste natus error sit on i tatem accusantium doloremque laudantium,
-                                totam rem aperiam, eaque ipsa quae.</p>
+                            {% load static %}
+                            <img src="{% static 'renaissance/img/logo.jpeg' %}" alt="sample image" class="img-fluid z-depth-1">
+                            <p class="mt-4 mb-5 text-justify">message</p>
                         </div>
                         <div class="col-lg-4 col-md-6">
-                            <h6 class="font-weight-bold mt-5 mb-3">LATESTS POSTS</h6>
+                            <h6 class="font-weight-bold mt-5 mb-3 text-uppercase">DERNIÈRES NOUVELLES</h6>
                             <hr class="mb-5">
-                            <div class="row mt-4">
+                            {% for ln in l_new %}
+                             {% if forloop.first %}
+                                <div class="row mt-4">
+                              {% else %}
+                                <div class="row">
+                              {% endif %}
                                 <div class="col-4">
                                     <div class="view overlay z-depth-1 mb-3">
-                                        <img src="https://mdbootstrap.com/img/Photos/Others/photo12.jpg" class="img-fluid" alt="Post">
+                                        {% if ln.image %}
+                                        <img src="{{ ln.image.url }}" class="img-fluid" alt="Post">
+                                       {% else %}
+                                            {% load static %}
+                                            <img src="{% static 'renaissance/img/earth-globe.jpg' %}" class="img-fluid rounded-bottom" alt="image manque">
                                         <a>
                                             <div class="mask rgba-white-slight"></div>
                                         </a>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="col-8 mb-1">
                                     <div class="">
                                         <p class="mb-1">
-                                            <a href="#!" class="text-hover font-weight-bold">Sed ut in perspiciatis unde omnis</a>
+                                            <a href="#!" class="text-hover font-weight-bold" style="color: #123549 !important;">{{ ln.titre|slice:50 }} ...</a>
                                         </p>
                                         <p class="font-small grey-text">
-                                            <em>July 22, 2017</em>
+                                            <em>{{ ln.created_on|date:"M d, Y" }}</em>
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="view overlay z-depth-1 mb-3">
-                                        <img src="https://mdbootstrap.com/img/Photos/Others/photo11.jpg" class="img-fluid" alt="Post">
-                                        <a>
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="col-7 mb-1">
-                                    <div class="">
-                                        <p class="mb-1">
-                                            <a href="#!" class="text-hover font-weight-bold">At vero eos et accusamus et </a>
-                                        </p>
-                                        <p class="font-small grey-text">
-                                            <em>July 22, 2017</em>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="view overlay z-depth-1 mb-3">
-                                        <img src="https://mdbootstrap.com/img/Photos/Others/photo15.jpg" class="img-fluid" alt="Post">
-                                        <a>
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="col-7 mb-1">
-                                    <div class="">
-                                        <p class="mb-1">
-                                            <a href="#!" class="text-hover font-weight-bold">Nemo enim ipsam voluptatem</a>
-                                        </p>
-                                        <p class="font-small grey-text">
-                                            <em>July 22, 2017</em>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
 
                         <div class="col-lg-4 col-md-6">
-                            <h6 class="font-weight-bold mt-5 mb-3">OLDER POSTS</h6>
+                            <h6 class="font-weight-bold mt-5 mb-3 text-uppercase"> d'autres ARTICLES</h6>
                             <hr class="mb-5">
-                            <div class="row mt-4">
+                            {% for l in last %}
+                              {% if forloop.first %}
+                                <div class="row mt-4">
+                              {% else %}
+                                <div class="row">
+                              {% endif %}
                                 <div class="col-4">
                                     <div class="view overlay z-depth-1 mb-3">
-                                        <img src="https://mdbootstrap.com/img/Photos/Others/photo1.jpg" class="img-fluid" alt="Post">
+                                        {% if l.image %}
+                                            <img src="{{ l.image.url }}" class="img-fluid" alt="Post">
+                                        {% else %}
+                                            {% load static %}
+                                            <img src="{% static 'renaissance/img/earth-globe.jpg' %}" class="img-fluid rounded-bottom" alt="image manque">
+                                        {% endif %}
                                         <a>
                                             <div class="mask rgba-white-slight"></div>
                                         </a>
@@ -191,83 +176,15 @@
                                 <div class="col-8 mb-1">
                                     <div class="">
                                         <p class="mb-1">
-                                            <a href="#!" class="text-hover font-weight-bold">Sed ut in perspiciatis unde omnis</a>
+                                            <a href="#!" class="text-hover font-weight-bold" style="color: #123549 !important;">{{ l.titre|slice:50 }} ...</a>
                                         </p>
                                         <p class="font-small grey-text">
-                                            <em>July 22, 2017</em>
+                                            <em>{{ l.created_on|date:"M d, Y" }}</em>
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="view overlay z-depth-1 mb-3">
-                                        <img src="https://mdbootstrap.com/img/Photos/Others/photo9.jpg" class="img-fluid" alt="Post">
-                                        <a>
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>
-
-                                </div>
-                                <!--Grid column-->
-
-                                <!--Second column-->
-                                <div class="col-7 mb-1">
-
-                                    <!--Post data-->
-                                    <div class="">
-                                        <p class="mb-1">
-                                            <a href="#!" class="text-hover font-weight-bold">At vero eos et accusamus et </a>
-                                        </p>
-                                        <p class="font-small grey-text">
-                                            <em>July 22, 2017</em>
-                                        </p>
-
-                                    </div>
-
-                                </div>
-                                <!--Second column-->
-
-                            </div>
-                            <!--Grid row-->
-
-
-                            <!--Grid row-->
-                            <div class="row">
-
-                                <!--Grid column-->
-                                <div class="col-4">
-
-                                    <!--Image-->
-                                    <div class="view overlay z-depth-1 mb-3">
-                                        <img src="https://mdbootstrap.com/img/Photos/Others/photo4.jpg" class="img-fluid" alt="Post">
-                                        <a>
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>
-
-                                </div>
-                                <!--Grid column-->
-
-                                <!--Second column-->
-                                <div class="col-7 mb-1">
-
-                                    <!--Post data-->
-                                    <div class="">
-                                        <p class="mb-1">
-                                            <a href="#!" class="text-hover font-weight-bold">Nemo enim ipsam voluptatem</a>
-                                        </p>
-                                        <p class="font-small grey-text">
-                                            <em>July 22, 2017</em>
-                                        </p>
-                                    </div>
-
-                                </div>
-                                <!--Second column-->
-
-                            </div>
-                            <!--Grid row-->
-
+                            {% endfor %}
                         </div>
                         <!--Grid column-->
 
