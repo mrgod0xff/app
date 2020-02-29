@@ -2416,42 +2416,6 @@ a.text-light:hover {
     transform: scale(1.1)
 }
 
-.pattern-1 {
-    background: url(../img/overlays/01.png) fixed
-}
-
-.pattern-2 {
-    background: url(../img/overlays/02.png) fixed
-}
-
-.pattern-3 {
-    background: url(../img/overlays/03.png) fixed
-}
-
-.pattern-4 {
-    background: url(../img/overlays/04.png) fixed
-}
-
-.pattern-5 {
-    background: url(../img/overlays/05.png) fixed
-}
-
-.pattern-6 {
-    background: url(../img/overlays/06.png) fixed
-}
-
-.pattern-7 {
-    background: url(../img/overlays/07.png) fixed
-}
-
-.pattern-8 {
-    background: url(../img/overlays/08.png) fixed
-}
-
-.pattern-9 {
-    background: url(../img/overlays/09.png) fixed
-}
-
 
 /*!
  * Waves v0.7.6

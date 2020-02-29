@@ -1,1 +1,1 @@
-web: gunicorn renaissance.wsgi
+web: gunicorn renaissance.wsgi --log-file -
