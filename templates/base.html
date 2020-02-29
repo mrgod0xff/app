@@ -36,6 +36,38 @@
                 height: 100%;
             }
         }
+        .gallery {
+-webkit-column-count: 3;
+-moz-column-count: 3;
+column-count: 3;
+-webkit-column-width: 33%;
+-moz-column-width: 33%;
+column-width: 33%; }
+.gallery .pics {
+-webkit-transition: all 350ms ease;
+transition: all 350ms ease; }
+.gallery .animation {
+-webkit-transform: scale(1);
+-ms-transform: scale(1);
+transform: scale(1); }
+
+@media (max-width: 450px) {
+.gallery {
+-webkit-column-count: 1;
+-moz-column-count: 1;
+column-count: 1;
+-webkit-column-width: 100%;
+-moz-column-width: 100%;
+column-width: 100%;
+}
+}
+
+@media (max-width: 400px) {
+.btn.filter {
+padding-left: 1.1rem;
+padding-right: 1.1rem;
+}
+}
     </style>
 </head>
 
@@ -63,7 +95,7 @@
                     <hr>
                     <ul class="list-unstyled">
                         <li>
-                            <a href="#!">
+                            <a href="{% url "adhesion:adherant" %}">
                                 <p>Devenez membre</p>
                             </a>
                         </li>
@@ -117,9 +149,18 @@
         </div>
     </footer>
     <script type="text/javascript" src="{% static 'renaissance/js/jquery-3.4.0.min.js' %}"></script>
-    <script>
-     $(function () {
-        $("#mdb-lightbox-ui").load("galerie/lightbox-ui.html");
+    <script type="text/javascript">
+     $(function() {
+        var selectedClass = "";
+        $(".filter").click(function(){
+        selectedClass = $(this).attr("data-rel");
+        $("#gallery").fadeTo(100, 0.1);
+        $("#gallery div").not("."+selectedClass).fadeOut().removeClass('animation');
+        setTimeout(function() {
+        $("."+selectedClass).fadeIn().addClass('animation');
+        $("#gallery").fadeTo(300, 1);
+        }, 300);
+        });
      });
     </script>
     <script type="text/javascript" src="{% static 'renaissance/js/popper.min.js' %}"></script>

@@ -27,3 +27,6 @@ class Revue(models.Model):
 
     def __str__(self):
         return self.maison
+
+    class Meta:
+       ordering = ['-id']

@@ -1,6 +1,10 @@
 import os
 import random
 import uuid
+import PIL.Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+import sys
 
 from django.db import models
 
@@ -18,11 +22,57 @@ def image_path(instance, filename):
             new_filename=new_filename,
             final_filename=final_filename)
 
-class Galerie(models.Model):
+class Image_long(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name  = models.CharField(max_length=200)
+    statut = models.BooleanField(default=True)
     image = models.ImageField(upload_to=image_path, null=True, blank=True)
 
-    def __str__(self):
-        return 
+    def save(self):
+            #Opening the uploaded image
+            im = PIL.Image.open(self.image)
 
+            output = BytesIO()
+
+            #Resize/modify the image
+            im = im.resize( (472,708) )
+
+            #after modifications, save it to the output
+            im.save(output, format='JPEG', quality=100)
+            output.seek(0)
+
+            #change the imagefield value to be the newley modifed image value
+            self.image = InMemoryUploadedFile(output,'ImageField', "%s.jpg" %self.image.name.split('.')[0], 'image/jpeg', sys.getsizeof(output), None)
+
+            super(Image_long,self).save()
+
+    def __str__(self):
+        return self.name
+
+
+class Image_large(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name  = models.CharField(max_length=200)
+    statut = models.BooleanField(default=True)
+    image = models.ImageField(upload_to=image_path, null=True, blank=True)
+
+    def save(self):
+            #Opening the uploaded image
+            im = PIL.Image.open(self.image)
+
+            output = BytesIO()
+
+            #Resize/modify the image
+            im = im.resize( (708,472) )
+
+            #after modifications, save it to the output
+            im.save(output, format='JPEG', quality=100)
+            output.seek(0)
+
+            #change the imagefield value to be the newley modifed image value
+            self.image = InMemoryUploadedFile(output,'ImageField', "%s.jpg" %self.image.name.split('.')[0], 'image/jpeg', sys.getsizeof(output), None)
+
+            super(Image_large,self).save()
+
+    def __str__(self):
+        return self.name
